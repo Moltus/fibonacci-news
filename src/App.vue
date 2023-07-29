@@ -12,7 +12,6 @@ onMounted(async () => {
   articleList.value = result.data.articles
     .filter((a) => a.urlToImage)
     .map((a) => ({ ...a, isMarkedAsViewed: false }))
-
 })
 
 function markAsViewed(index) {
@@ -39,9 +38,9 @@ function markAsViewed(index) {
 
   <main>
     <ArticleContainer
-      :articleList="articleList"
-      @handleClickOnViewed="markAsViewed"
-    </ArticleContainer>
+      :article-list="articleList"
+      @handle-click-on-viewed="markAsViewed"
+    />
   </main>
 </template>
 
