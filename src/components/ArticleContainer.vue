@@ -16,9 +16,8 @@ const unreadArticles = computed(() => {
 
 <template>
   <ArticleItem
-    v-for="(article, index) in unreadArticles"
-    :key="index"
+    v-for="article in unreadArticles"
+    :key="article.id"
     :content="article"
-    :index="index"
   />
 </template>

@@ -9,15 +9,19 @@ onMounted(async () => {
   let result = await axios.get(
     'https://newsapi.org/v2/everything?q=sports&from=2023-07-01&sortBy=publishedAt&apiKey=3ede5178a73d4c059609dc97b5dc7064'
   )
+  // force ids from index as results don't have any
+  // Add 'mark as viewed' property to then filter out items on click
   articleList.value = result.data.articles
     .filter((a) => a.urlToImage)
-    .map((a) => ({ ...a, isMarkedAsViewed: false }))
+    .map((a, index) => ({ ...a, id: index, isMarkedAsViewed: false }))
 })
 
-function markAsViewed(index) {
-  console.log('mark as viewed')
-  console.log(index)
-  articleList.value[index].isMarkedAsViewed = true
+function markAsViewed(id) {
+  const article = articleList.value.find((a) => a.id === id)
+  if (!article) {
+    throw new Error('Cannot find article with this id')
+  }
+  article.isMarkedAsViewed = true
 }
 </script>
 
