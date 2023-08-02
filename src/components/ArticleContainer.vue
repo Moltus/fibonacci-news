@@ -7,28 +7,9 @@ const props = defineProps(['articleList', 'nbElements', 'scalingCoefficient'])
 const currentArticle = ref(0)
 const sequenceTemplates = ref([])
 
-const randomHsl = () => `hsla(${Math.random() * 360}, 100%, 50%, 1)`
-
-const transformFromTemplate = (
-  source,
-  template,
-  isNew = false,
-  index = null
-) => {
-  source.textContent = template.size
-  source.style.fontSize = (template.size * props.scalingCoefficient) / 3 + 'px'
-  source.style.width = source.style.height =
-    template.size * props.scalingCoefficient + 'px'
-  source.style.top = template.top + 'px'
-  source.style.left = template.left + 'px'
-  if (isNew) {
-    source.classList.add('box-item')
-    source.style.backgroundColor = randomHsl()
-  }
-  return true
-}
-
 onMounted(() => {
+  console.log(props.nbElements)
+  currentArticle.value = props.nbElements
   sequenceTemplates.value[0] = {}
   sequenceTemplates.value[0].size =
     sequenceTemplates.value[0].fontSize =
@@ -74,6 +55,7 @@ onMounted(() => {
 })
 
 const displayedArticles = computed(() => {
+  console.log(currentArticle.value)
   return sequenceTemplates.value.map((element, index) => {
     return {
       ...element,
@@ -87,7 +69,6 @@ const displayedArticles = computed(() => {
 const cycleArticle = () => {
   let next = --currentArticle.value
   if (next < 0) next = props.articleList.length - props.nbElements
-  // currentArticle.value = (currentArticle.value - 1) % props.articleList.length
   currentArticle.value = next
 }
 </script>

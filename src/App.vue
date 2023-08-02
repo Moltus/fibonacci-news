@@ -2,6 +2,7 @@
 import { onMounted, ref } from 'vue'
 import axios from 'axios'
 import ArticleContainer from './components/ArticleContainer.vue'
+import LoadingWheel from './components/LoadingWheel.vue'
 
 const articleList = ref([])
 
@@ -34,10 +35,12 @@ onMounted(async () => {
 
   <main>
     <ArticleContainer
+      v-if="articleList.length > 0"
       :article-list="articleList"
       :nbElements="8"
       :scalingCoefficient="44"
     />
+    <LoadingWheel v-else />
   </main>
 </template>
 
