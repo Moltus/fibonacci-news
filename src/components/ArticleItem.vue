@@ -1,10 +1,12 @@
 <script setup>
-const props = defineProps(['size', 'title', 'image', 'left', 'top'])
+const props = defineProps(['size', 'title', 'image', 'left', 'top', 'url'])
 </script>
 
 <template>
-  <div
+  <a
     class="article-item"
+    :href="props.url"
+    target="_blank"
     :style="{
       background:
         // 'center / contain no-repeat linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.0)), url(' +
@@ -17,7 +19,7 @@ const props = defineProps(['size', 'title', 'image', 'left', 'top'])
     }"
   >
     <p v-if="props.size > 200">{{ props.title }}</p>
-  </div>
+  </a>
 </template>
 
 <style scoped>
@@ -28,7 +30,7 @@ const props = defineProps(['size', 'title', 'image', 'left', 'top'])
   position: absolute;
   user-select: none;
   box-sizing: border-box;
-  border: solid 2px var(--color-background);
+  border: solid 5px var(--color-background);
 }
 
 .article-item p {

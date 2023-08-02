@@ -55,21 +55,26 @@ onMounted(() => {
 })
 
 const displayedArticles = computed(() => {
-  console.log(currentArticle.value)
   return sequenceTemplates.value.map((element, index) => {
     return {
       ...element,
       title: props.articleList[currentArticle.value + index]?.title,
       image: props.articleList[currentArticle.value + index]?.urlToImage,
+      url: props.articleList[currentArticle.value + index]?.url,
       id: props.articleList[currentArticle.value + index]?.id
     }
   })
 })
 
-const cycleArticle = () => {
-  let next = --currentArticle.value
-  if (next < 0) next = props.articleList.length - props.nbElements
-  currentArticle.value = next
+const cycleArticle = (reverse = false) => {
+  if (reverse) {
+    currentArticle.value =
+      (currentArticle.value + 1) % (props.articleList.length - props.nbElements)
+  } else {
+    let next = --currentArticle.value
+    if (next < 0) next = props.articleList.length - props.nbElements
+    currentArticle.value = next
+  }
 }
 </script>
 
@@ -94,16 +99,30 @@ const cycleArticle = () => {
         'px'
     }"
   >
-    <ArticleItem
-      v-for="article in displayedArticles"
-      :key="article.id"
-      :size="article.size * props.scalingCoefficient"
-      :title="article.title"
-      :image="article.image"
-      :top="article.top * props.scalingCoefficient"
-      :left="article.left * props.scalingCoefficient"
-      @click="cycleArticle"
-    />
+    <TransitionGroup>
+      <ArticleItem
+        v-for="article in displayedArticles"
+        :url="article.url"
+        :key="article.id"
+        :size="article.size * props.scalingCoefficient"
+        :title="article.title"
+        :image="article.image"
+        :top="article.top * props.scalingCoefficient"
+        :left="article.left * props.scalingCoefficient"
+      />
+    </TransitionGroup>
+  </div>
+  <div
+    class="arrow-container"
+    :style="{
+      top:
+        Math.min(sequenceTemplates.at(-1)?.top, sequenceTemplates.at(-2)?.top) +
+        (sequenceTemplates.at(-1)?.size * props.scalingCoefficient) / 2 +
+        'px'
+    }"
+  >
+    <div class="arrow left" @click="cycleArticle(true)"></div>
+    <div class="arrow right" @click="cycleArticle()"></div>
   </div>
 </template>
 
@@ -112,5 +131,46 @@ const cycleArticle = () => {
   position: relative;
   width: 0;
   height: 0;
+}
+
+.arrow-container {
+  position: relative;
+}
+
+.arrow {
+  position: absolute;
+  width: 0px;
+  height: 0px;
+  border-style: solid;
+  border-width: 0 33px 50px 33px;
+  border-color: transparent transparent #34495e transparent;
+}
+
+.arrow:hover {
+  cursor: pointer;
+  border-color: transparent transparent #41b883 transparent;
+}
+
+.arrow.left {
+  transform: rotate(270deg);
+  left: 50px;
+}
+
+.arrow.right {
+  transform: rotate(90deg);
+  right: 50px;
+}
+
+.v-enter-active {
+  transition: transform 0.5s ease;
+}
+
+.v-leave-active {
+  transition: none;
+}
+
+.v-enter-from,
+.v-leave-to {
+  transform: scale(0);
 }
 </style>
