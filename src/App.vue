@@ -15,14 +15,6 @@ onMounted(async () => {
     .filter((a) => a.urlToImage)
     .map((a, index) => ({ ...a, id: index, isMarkedAsViewed: false }))
 })
-
-function markAsViewed(id) {
-  const article = articleList.value.find((a) => a.id === id)
-  if (!article) {
-    throw new Error('Cannot find article with this id')
-  }
-  article.isMarkedAsViewed = true
-}
 </script>
 
 <template>
@@ -43,7 +35,8 @@ function markAsViewed(id) {
   <main>
     <ArticleContainer
       :article-list="articleList"
-      @handle-click-on-viewed="markAsViewed"
+      :nbElements="8"
+      :scalingCoefficient="44"
     />
   </main>
 </template>
@@ -54,6 +47,8 @@ header {
 }
 
 .logo {
+  width: 50px;
+  height: 50px;
   display: block;
   margin: 0 auto 2rem;
 }
@@ -62,25 +57,11 @@ header {
   header {
     display: flex;
     flex-direction: row-reverse;
-    justify-content: flex-end;
+    margin-bottom: 1rem;
   }
 
   .logo {
     margin: 0 2rem 0 0;
   }
-}
-
-.article-container {
-  width: 22rem;
-  height: 22rem;
-  display: grid;
-  grid-template: repeat(3, 1fr) / repeat(3, 1fr);
-  gap: 1rem 1rem;
-}
-
-.article-container li {
-  width: 20rem;
-  height: 20rem;
-  list-style: none;
 }
 </style>
