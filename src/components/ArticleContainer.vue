@@ -29,7 +29,6 @@ const transformFromTemplate = (
 }
 
 onMounted(() => {
-  currentArticle.value = props.nbElements
   sequenceTemplates.value[0] = {}
   sequenceTemplates.value[0].size =
     sequenceTemplates.value[0].fontSize =
@@ -75,16 +74,22 @@ onMounted(() => {
 })
 
 const displayedArticles = computed(() => {
-  console.log(props.articleList)
   return sequenceTemplates.value.map((element, index) => {
     return {
       ...element,
-      title: props.articleList[index]?.title,
-      image: props.articleList[index]?.urlToImage,
-      id: props.articleList[index]?.id
+      title: props.articleList[currentArticle.value + index]?.title,
+      image: props.articleList[currentArticle.value + index]?.urlToImage,
+      id: props.articleList[currentArticle.value + index]?.id
     }
   })
 })
+
+const cycleArticle = () => {
+  let next = --currentArticle.value
+  if (next < 0) next = props.articleList.length - props.nbElements
+  // currentArticle.value = (currentArticle.value - 1) % props.articleList.length
+  currentArticle.value = next
+}
 </script>
 
 <template>
@@ -116,6 +121,7 @@ const displayedArticles = computed(() => {
       :image="article.image"
       :top="article.top * props.scalingCoefficient"
       :left="article.left * props.scalingCoefficient"
+      @click="cycleArticle"
     />
   </div>
 </template>
