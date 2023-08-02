@@ -8,9 +8,7 @@ const props = defineProps(['size', 'title', 'image', 'left', 'top', 'url'])
     :href="props.url"
     target="_blank"
     :style="{
-      background:
-        // 'center / contain no-repeat linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.0)), url(' +
-        'center/cover no-repeat url(' + props.image + ')',
+      background: 'center/cover no-repeat url(' + props.image + ')',
       width: props.size + 'px',
       height: props.size + 'px',
       top: props.top + 'px',
@@ -25,7 +23,7 @@ const props = defineProps(['size', 'title', 'image', 'left', 'top', 'url'])
 <style scoped>
 .article-item {
   transition: all 0.5s ease;
-  color: #ccc;
+  color: #ddd;
   text-shadow: 0 0 5px var(--color-background);
   position: absolute;
   user-select: none;

@@ -139,26 +139,47 @@ const cycleArticle = (reverse = false) => {
 
 .arrow {
   position: absolute;
-  width: 0px;
-  height: 0px;
-  border-style: solid;
-  border-width: 0 33px 50px 33px;
-  border-color: transparent transparent #34495e transparent;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #ffffff33;
+}
+
+.arrow::after {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  text-align: center;
+  font-weight: bold;
+  font-size: 40px;
+  line-height: 58px;
+  content: '⮞';
+  color: #42b883;
 }
 
 .arrow:hover {
   cursor: pointer;
-  border-color: transparent transparent #41b883 transparent;
+}
+
+.arrow:hover::after {
+  color: #eee;
 }
 
 .arrow.left {
-  transform: rotate(270deg);
   left: 50px;
 }
 
+.arrow.left::after {
+  transform: scaleX(-1);
+  left: -3px;
+}
+
 .arrow.right {
-  transform: rotate(90deg);
   right: 50px;
+}
+
+.arrow.right::after {
+  right: -3px;
 }
 
 .v-enter-active {
