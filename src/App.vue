@@ -3,9 +3,11 @@ import { onMounted, ref } from 'vue'
 import axios from 'axios'
 import ArticleContainer from './components/ArticleContainer.vue'
 import LoadingWheel from './components/LoadingWheel.vue'
+import RangeSlider from './components/RangeSlider.vue'
 
 const articleList = ref([])
 const errors = ref([])
+const nbElements = ref(8)
 
 onMounted(async () => {
   const date = new Date()
@@ -27,16 +29,23 @@ onMounted(async () => {
 
 <template>
   <header>
-    <img
-      alt="Vue logo"
-      class="logo"
-      src="./assets/logo.svg"
-      width="125"
-      height="125"
+    <RangeSlider
+      id="article-number"
+      name="Article number"
+      value="8"
+      :min="0"
+      :max="16"
+      v-model="nbElements"
     />
-
     <div class="wrapper">
       <h1>Fibonacci News</h1>
+      <img
+        alt="Vue logo"
+        class="logo"
+        src="./assets/logo.svg"
+        width="125"
+        height="125"
+      />
     </div>
   </header>
 
@@ -44,7 +53,7 @@ onMounted(async () => {
     <ArticleContainer
       v-if="articleList.length > 0"
       :article-list="articleList"
-      :nbElements="8"
+      :nbElements="nbElements"
       :scalingCoefficient="44"
     />
     <div v-else-if="errors.length > 0">
@@ -68,8 +77,9 @@ header {
 
 @media (min-width: 1024px) {
   header {
+    margin: 0.5rem 2rem 1rem 2rem;
     display: flex;
-    flex-direction: row-reverse;
+    justify-content: space-between;
     margin-bottom: 1rem;
   }
 
