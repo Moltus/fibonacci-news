@@ -18,12 +18,10 @@ onMounted(async () => {
     )
     articleList.value = response.data.articles
       .filter((a) => a.urlToImage)
-      .map((a, index) => ({ ...a, id: index }))
+      .map((a, index) => ({ ...a, id: index })) // Force ids from index
   } catch (e) {
     errors.value.push(e)
   }
-  // force ids from index as results don't have any
-  // Add 'mark as viewed' property to then filter out items on click
 })
 </script>
 
