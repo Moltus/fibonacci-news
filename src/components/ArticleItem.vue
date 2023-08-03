@@ -29,6 +29,7 @@ const props = defineProps(['size', 'title', 'image', 'left', 'top', 'url'])
   user-select: none;
   box-sizing: border-box;
   border: solid 5px var(--color-background);
+  /* border: solid 2px var(--color-mint); */
 }
 
 .article-item p {

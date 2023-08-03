@@ -8,6 +8,7 @@ import RangeSlider from './components/RangeSlider.vue'
 const articleList = ref([])
 const errors = ref([])
 const nbElements = ref(8)
+const scalingCoefficient = ref(44)
 
 onMounted(async () => {
   const date = new Date()
@@ -29,14 +30,24 @@ onMounted(async () => {
 
 <template>
   <header>
-    <RangeSlider
-      id="article-number"
-      name="Article number"
-      value="8"
-      :min="0"
-      :max="16"
-      v-model="nbElements"
-    />
+    <div class="input-container">
+      <RangeSlider
+        id="article-number"
+        name="Article number"
+        value="8"
+        :min="0"
+        :max="16"
+        v-model="nbElements"
+      />
+      <RangeSlider
+        id="scaling-coefficient"
+        name="Scaling coefficient"
+        value="8"
+        :min="1"
+        :max="100"
+        v-model="scalingCoefficient"
+      />
+    </div>
     <div class="wrapper">
       <h1>Fibonacci News</h1>
       <img
@@ -54,7 +65,7 @@ onMounted(async () => {
       v-if="articleList.length > 0"
       :article-list="articleList"
       :nbElements="nbElements"
-      :scalingCoefficient="44"
+      :scalingCoefficient="scalingCoefficient"
     />
     <div v-else-if="errors.length > 0">
       {{ errors[0] }}
@@ -66,6 +77,9 @@ onMounted(async () => {
 <style scoped>
 header {
   line-height: 1.5;
+}
+header .wrapper {
+  display: flex;
 }
 
 .logo {
@@ -86,5 +100,9 @@ header {
   .logo {
     margin: 0 2rem 0 0;
   }
+}
+.input-container {
+  display: flex;
+  gap: 2rem;
 }
 </style>

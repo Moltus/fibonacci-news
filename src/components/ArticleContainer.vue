@@ -152,7 +152,7 @@ const cycleArticle = (reverse = false) => {
   font-size: 40px;
   line-height: 58px;
   content: '⮞';
-  color: #42b883;
+  color: var(--color-mint);
 }
 
 .arrow:hover {
