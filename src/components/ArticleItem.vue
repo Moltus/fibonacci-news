@@ -34,6 +34,6 @@ const props = defineProps(['size', 'title', 'image', 'left', 'top', 'url'])
 
 .article-item p {
   padding: 0.5rem 1rem 1rem 1rem;
-  background-color: #00000060;
+  background-color: #00000080;
 }
 </style>
