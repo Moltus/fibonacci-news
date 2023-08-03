@@ -22,18 +22,46 @@ h1 {
 
 .loading-wheel {
   margin: 5rem auto;
-  width: 200px;
-  height: 200px;
+  width: 100px;
+  height: 100px;
   animation: rotation 2s linear infinite;
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 5px;
 }
 
 .wheel-segment {
-  border: 4px solid #777;
-  width: 90px;
-  height: 90px;
+  border: 2px solid #666;
+  width: 47.5px;
+  height: 47.5px;
+}
+
+.wheel-segment:nth-child(1) {
+  border-top: none;
+  border-right: none;
+  border-radius: 100% 0 0 0;
+  background-color: #202020;
+}
+
+.wheel-segment:nth-child(2) {
+  border-right: none;
+  border-bottom: none;
+  border-radius: 0 100% 0 0;
+  background-color: #282828;
+}
+
+.wheel-segment:nth-child(3) {
+  border-left: none;
+  border-top: none;
+  border-radius: 0 0 0 100%;
+  background-color: #303030;
+}
+
+.wheel-segment:nth-child(4) {
+  border-bottom: none;
+  border-left: none;
+  border-radius: 0 0 100% 0;
+  background-color: #383838;
 }
 
 @keyframes rotation {
