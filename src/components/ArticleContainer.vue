@@ -8,7 +8,6 @@ const currentArticle = ref(0)
 const sequenceTemplates = ref([])
 
 onMounted(() => {
-  console.log(props.nbElements)
   currentArticle.value = props.nbElements
   sequenceTemplates.value[0] = {}
   sequenceTemplates.value[0].size =

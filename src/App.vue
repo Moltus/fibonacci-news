@@ -5,16 +5,25 @@ import ArticleContainer from './components/ArticleContainer.vue'
 import LoadingWheel from './components/LoadingWheel.vue'
 
 const articleList = ref([])
+const errors = ref([])
 
 onMounted(async () => {
-  let result = await axios.get(
-    'https://newsapi.org/v2/everything?q=sports&from=2023-07-01&sortBy=publishedAt&apiKey=3ede5178a73d4c059609dc97b5dc7064'
-  )
+  const date = new Date()
+  date.setMonth(date.getDate() - 15)
+  try {
+    const response = await axios.get(
+      'https://newsapi.org/v2/everything?q=sports&from=' +
+        date +
+        '&sortBy=publishedAt&apiKey=3ede5178a73d4c059609dc97b5dc7064'
+    )
+    articleList.value = response.data.articles
+      .filter((a) => a.urlToImage)
+      .map((a, index) => ({ ...a, id: index }))
+  } catch (e) {
+    errors.value.push(e)
+  }
   // force ids from index as results don't have any
   // Add 'mark as viewed' property to then filter out items on click
-  articleList.value = result.data.articles
-    .filter((a) => a.urlToImage)
-    .map((a, index) => ({ ...a, id: index, isMarkedAsViewed: false }))
 })
 </script>
 
@@ -40,6 +49,9 @@ onMounted(async () => {
       :nbElements="8"
       :scalingCoefficient="44"
     />
+    <div v-else-if="errors.length > 0">
+      {{ errors[0] }}
+    </div>
     <LoadingWheel v-else />
   </main>
 </template>
