@@ -5,52 +5,51 @@ import { computed, ref, onMounted } from 'vue'
 const props = defineProps(['articleList', 'nbElements', 'scalingCoefficient'])
 
 const currentArticle = ref(0)
-const sequenceTemplates = ref([])
 
 onMounted(() => {
   currentArticle.value = props.nbElements
-  sequenceTemplates.value[0] = {}
-  sequenceTemplates.value[0].size =
-    sequenceTemplates.value[0].fontSize =
-    sequenceTemplates.value[0].top =
-    sequenceTemplates.value[0].left =
+})
+
+const sequenceTemplates = computed(() => {
+  const templates = []
+  templates[0] = {}
+  templates[0].size =
+    templates[0].fontSize =
+    templates[0].top =
+    templates[0].left =
       0
 
-  sequenceTemplates.value[1] = {}
-  sequenceTemplates.value[1].size = 1
-  sequenceTemplates.value[1].fontSize = 1 / 3
-  sequenceTemplates.value[1].top = sequenceTemplates.value[1].left = 0
+  templates[1] = {}
+  templates[1].size = 1
+  templates[1].fontSize = 1 / 3
+  templates[1].top = templates[1].left = 0
 
   for (let i = 2; i < props.nbElements; i++) {
-    let itemSize =
-      sequenceTemplates.value[i - 1].size + sequenceTemplates.value[i - 2].size
-    let previousElement = sequenceTemplates.value[i - 1]
+    let itemSize = templates[i - 1].size + templates[i - 2].size
+    let previousElement = templates[i - 1]
 
-    sequenceTemplates.value[i] = {}
-    sequenceTemplates.value[i].size = itemSize
-    sequenceTemplates.value[i].fontSize = itemSize / 3
+    templates[i] = {}
+    templates[i].size = itemSize
+    templates[i].fontSize = itemSize / 3
     if (i % 4 === 0) {
       // bottom left anchor
-      sequenceTemplates.value[i].top =
-        previousElement.top + previousElement.size
-      sequenceTemplates.value[i].left = previousElement.left
+      templates[i].top = previousElement.top + previousElement.size
+      templates[i].left = previousElement.left
     } else if (i % 4 === 1) {
       // bottom right anchor
-      sequenceTemplates.value[i].top =
-        previousElement.top + previousElement.size - itemSize
-      sequenceTemplates.value[i].left =
-        previousElement.left + previousElement.size
+      templates[i].top = previousElement.top + previousElement.size - itemSize
+      templates[i].left = previousElement.left + previousElement.size
     } else if (i % 4 === 2) {
       // top right anchor
-      sequenceTemplates.value[i].top = previousElement.top - itemSize
-      sequenceTemplates.value[i].left =
-        previousElement.left + previousElement.size - itemSize
+      templates[i].top = previousElement.top - itemSize
+      templates[i].left = previousElement.left + previousElement.size - itemSize
     } else if (i % 4 === 3) {
       // top left anchor
-      sequenceTemplates.value[i].top = previousElement.top
-      sequenceTemplates.value[i].left = previousElement.left - itemSize
+      templates[i].top = previousElement.top
+      templates[i].left = previousElement.left - itemSize
     }
   }
+  return templates
 })
 
 const displayedArticles = computed(() => {
