@@ -11,17 +11,16 @@ const nbElements = ref(8)
 const scalingCoefficient = ref(44)
 
 onMounted(async () => {
-  const date = new Date()
-  date.setMonth(date.getDate() - 15)
+  const today = new Date()
+  const sinceDate = new Date()
+  sinceDate.setDate(today.getDate() - 15)
   try {
     const response = await axios.get(
-      'https://newsapi.org/v2/everything?q=sports&from=' +
-        date +
-        '&sortBy=publishedAt&apiKey=3ede5178a73d4c059609dc97b5dc7064'
+      'https://api.nytimes.com/svc/topstories/v2/world.json?api-key=uKBGQUvgMqVgFX7JdVv4Ilx5D2e1efo8'
     )
-    articleList.value = response.data.articles
-      .filter((a) => a.urlToImage)
-      .map((a, index) => ({ ...a, id: index })) // Force ids from index
+    articleList.value = response.data.results
+      .filter((a) => a.multimedia[0].url.includes('.jpg'))
+      .map((a, index) => ({ ...a, id: index, image: a.multimedia[0].url })) // Force ids from index
   } catch (e) {
     errors.value.push(e)
   }

@@ -57,7 +57,7 @@ const displayedArticles = computed(() => {
     return {
       ...element,
       title: props.articleList[currentArticle.value + index]?.title,
-      image: props.articleList[currentArticle.value + index]?.urlToImage,
+      image: props.articleList[currentArticle.value + index]?.image,
       url: props.articleList[currentArticle.value + index]?.url,
       id: props.articleList[currentArticle.value + index]?.id
     }
