@@ -1,5 +1,6 @@
 <script setup>
 import ArticleItem from './ArticleItem.vue'
+import ArrowButton from './ArrowButton.vue'
 import { computed, ref, onMounted } from 'vue'
 
 const props = defineProps(['articleList', 'nbElements', 'scalingCoefficient'])
@@ -119,8 +120,16 @@ const cycleArticle = (reverse = false) => {
         'px'
     }"
   >
-    <div class="arrow left" @click="cycleArticle(true)"></div>
-    <div class="arrow right" @click="cycleArticle()"></div>
+    <ArrowButton
+      :style="{ left: '50px' }"
+      direction="left"
+      @click="cycleArticle(true)"
+    />
+    <ArrowButton
+      :style="{ right: '50px' }"
+      direction="right"
+      @click="cycleArticle()"
+    />
   </div>
 </template>
 
@@ -133,51 +142,6 @@ const cycleArticle = (reverse = false) => {
 
 .arrow-container {
   position: relative;
-}
-
-.arrow {
-  position: absolute;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background-color: #ffffff33;
-}
-
-.arrow::after {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  text-align: center;
-  font-weight: bold;
-  font-size: 40px;
-  line-height: 58px;
-  content: '⮞';
-  color: var(--color-mint);
-}
-
-.arrow:hover {
-  cursor: pointer;
-}
-
-.arrow:hover::after {
-  color: #eee;
-}
-
-.arrow.left {
-  left: 50px;
-}
-
-.arrow.left::after {
-  transform: scaleX(-1);
-  left: -3px;
-}
-
-.arrow.right {
-  right: 50px;
-}
-
-.arrow.right::after {
-  right: -3px;
 }
 
 .v-enter-active {
