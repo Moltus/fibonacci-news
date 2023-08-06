@@ -33,8 +33,8 @@ const directionClass = computed(() => {
   text-align: center;
   font-weight: bold;
   font-size: 40px;
-  line-height: 58px;
-  content: '⮞';
+  line-height: 56px;
+  content: '▶';
   color: var(--color-mint);
 }
 
@@ -51,11 +51,7 @@ const directionClass = computed(() => {
   left: -3px;
 }
 
-.arrow.right {
-  right: 50px;
-}
-
-.arrow.right::after {
+.arrow.right:after {
   right: -3px;
 }
 </style>

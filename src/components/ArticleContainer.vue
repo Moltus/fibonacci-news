@@ -125,12 +125,12 @@ const getStyle = computed(() => {
     }"
   >
     <ArrowButton
-      :style="{ left: '50px' }"
+      :style="{ left: '40px' }"
       direction="left"
       @click="cycleArticle(true)"
     />
     <ArrowButton
-      :style="{ right: '50px' }"
+      :style="{ right: '40px' }"
       direction="right"
       @click="cycleArticle()"
     />
