@@ -75,29 +75,33 @@ const cycleArticle = (reverse = false) => {
     currentArticle.value = next
   }
 }
+const getStyle = computed(() => {
+  return {
+    left:
+      'calc(' +
+      Math.min(
+        sequenceTemplates.value.at(-1)?.left,
+        sequenceTemplates.value.at(-2)?.left
+      ) *
+        -props.scalingCoefficient +
+      'px + (100vw - ' +
+      (sequenceTemplates.value.at(-1)?.size * props.scalingCoefficient +
+        (props.nbElements % 2 === 0 ? sequenceTemplates.value.at(-2)?.size * props.scalingCoefficient : 0)
+        ) +
+      'px)/2)',
+    top:
+      Math.min(
+        sequenceTemplates.value.at(-1)?.top,
+        sequenceTemplates.value.at(-2)?.top
+      ) *
+        -props.scalingCoefficient +
+      'px'
+  }
+})
 </script>
 
 <template>
-  <div
-    class="article-container"
-    :style="{
-      left:
-        'calc(' +
-        Math.min(
-          sequenceTemplates.at(-1)?.left,
-          sequenceTemplates.at(-2)?.left
-        ) *
-          -props.scalingCoefficient +
-        'px + (100vw - ' +
-        (sequenceTemplates.at(-1)?.size * props.scalingCoefficient +
-          sequenceTemplates.at(-2)?.size * props.scalingCoefficient) +
-        'px)/2)',
-      top:
-        Math.min(sequenceTemplates.at(-1)?.top, sequenceTemplates.at(-2)?.top) *
-          -props.scalingCoefficient +
-        'px'
-    }"
-  >
+  <div class="article-container" :style="getStyle">
     <TransitionGroup>
       <ArticleItem
         v-for="article in displayedArticles"
