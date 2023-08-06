@@ -9,12 +9,12 @@ const props = defineProps({
     }
   }
 })
-const arrowClass = computed(() => {
-  return { arrow: true, [props.direction]: true }
+const directionClass = computed(() => {
+  return { [props.direction]: true }
 })
 </script>
 <template>
-  <div :class="arrowClass"></div>
+  <div :class="['arrow', directionClass]"></div>
 </template>
 
 <style scoped>
