@@ -24,16 +24,15 @@ const props = defineProps(['size', 'title', 'image', 'left', 'top', 'url'])
 .article-item {
   transition: all 0.5s ease;
   color: #ddd;
-  text-shadow: 0 0 5px #000;
+  text-shadow: 0 0 5px var(--color-background);
   position: absolute;
   user-select: none;
   box-sizing: border-box;
   border: solid 5px var(--color-background);
-  /* border: solid 2px var(--color-mint); */
 }
 
 .article-item p {
   padding: 0.5rem 1rem 1rem 1rem;
-  background-color: #00000080;
+  background-color: #00000060;
 }
 </style>
